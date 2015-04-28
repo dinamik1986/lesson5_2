@@ -1,6 +1,6 @@
                                 
 <?php                          # Первое задание
-$name = 'Dmitriy11';
+$name = 'Dmitriy1';
 $age = 28;
 echo 'Меня зовут '.$name.' <br> Мне '.$age.' лет <br>';
 
