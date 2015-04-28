@@ -1,8 +1,8 @@
                                 
-<?                          # Первое задание
+<?php                          # Первое задание
 $name = 'Dmitriy';
 $age = 28;
-echo 'Меня зовут '.$name.' <br> Мне '.$age.' лет';
+echo 'Меня зовут '.$name.' <br> Мне '.$age.' лет <br>';
 
 unset($name,$age);
 
@@ -10,9 +10,7 @@ unset($name,$age);
 //$name = '';
 //$age = '';
 
-?>
-<br>
-<?
+
 # Второе задание
 
 define('CITY', 'Novosibirsk');
@@ -59,7 +57,7 @@ $books = array (
            'pages2'=>'400')
     );
 
-    var_dump($books);
+   # var_dump($books);
     
 
 echo 'Недавно я прочитал книги '.$books[0]['title1'].' и '.$books[1]['title2'].''
@@ -67,6 +65,7 @@ echo 'Недавно я прочитал книги '.$books[0]['title1'].' и '
       . 'я осилил в сумме '.($books[0]['pages1'] + $books[1]['pages2']).' страниц, '
       . 'не ожидал от себя подобного. <br> ';
 
+?>
 
 
 
