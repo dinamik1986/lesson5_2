@@ -9,28 +9,28 @@ $date = array(rand(1,time()),rand(1,time()),rand(1,time()),rand(1,time()),rand(1
 
 #Выводим на экраз все значения в столбик для графического анализа
 
-echo 'Год. День. Мес. Час. Мин. Сек.<br>';
+echo 'День. Мес. Год. Час. Мин. Сек.<br>';
 
 foreach($date as $value){ 
-echo "<br>".date('Y.m.d H.m.s', $value);
+echo "<br>".date('d.m.Y H.m.s', $value);
 }
 
 #Нужно сделать массив из значений date('Y.m.d H.m.s', $value);
 
 
 foreach($date as $value){ 
-$str[] = date('Y.m.d H.m.s', $value);
+$str[] = date('d.m.Y H.m.s', $value);
 }
 
 # Теперь нужно найти наименьший день и наибольший месяц:
 
 foreach($str as $value){ 
-$minday[] = substr($value,8,2);
+$minday[] = substr($value,0,2);
 }
 echo '<br><br>Наименьший день месяца:'  .min($minday);
 
 foreach($str as $value){ 
-$maxmounth[] = substr($value,5,2);
+$maxmounth[] = substr($value,3,2);
 }
 echo '<br><br>Наибольший месяц:'  .max($maxmounth)."<br><br>";
 
@@ -55,14 +55,21 @@ echo '<br>';
 
 $selected=array_pop($date);
 
-date_default_timezone_get();
+echo date_default_timezone_get();
+echo '<br>';
 
 echo date('d.m.Y H.m.s', $value);
+echo '<br>';
 
 #Меняем тайм зону и повторяем вывод:
 
-date_default_timezone_set(America/New_York);
+date_default_timezone_set('America/New_York')
+echo '<br>';
+
+echo date_default_timezone_get();
+echo '<br>';
 
 echo date('d.m.Y H.m.s', $value);
+echo '<br>';
 
 ?>
