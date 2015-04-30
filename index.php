@@ -63,7 +63,7 @@ echo '<br>';
 
 #Меняем тайм зону и повторяем вывод:
 
-date_default_timezone_set('America/New_York')
+date_default_timezone_set('America/New_York');
 echo '<br>';
 
 echo date_default_timezone_get();
