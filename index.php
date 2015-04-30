@@ -1,73 +1,68 @@
                                 
-<?php                          # Первое задание
-$name = 'Dmitriy134';
-$age = 28;
-echo 'Меня зовут '.$name.' <br> Мне '.$age.' лет <br>';
+<?php 
 
-unset($name,$age);
+error_reporting(E_ERROR|E_WARNING|E_PARSE|E_NOTICE);
+ini_set('display_errors', 1);
 
-// Если же имелось ввиду не удаление переменных, а обнуление значений переменных, то 
-//$name = '';
-//$age = '';
+# Делаем массив из рандомных значений юникс даты
+$date = array(rand(1,time()),rand(1,time()),rand(1,time()),rand(1,time()),rand(1,time()));
 
+#Выводим на экраз все значения в столбик для графического анализа
 
-# Второе задание
+echo 'Год. День. Мес. Час. Мин. Сек.<br>';
 
-define('CITY', 'Novosibirsk');
-
-if (defined('CITY') == true) 
-    {
-    echo CITY;
+foreach($date as $value){ 
+echo "<br>".date('Y.m.d H.m.s', $value);
 }
 
-# Либо, можем убедиться, что константа объявлена и существует через 
-# var_dump(CITY);
-# результат вывода этой команды "string 'Novosibirsk' (length=11)"
+#Нужно сделать массив из значений date('Y.m.d H.m.s', $value);
 
-#нельзя поменять значение константы, но можно попытаться, если ты индусский кодер
 
-        
-        
-# Третье задание
+foreach($date as $value){ 
+$str[] = date('Y.m.d H.m.s', $value);
+}
 
-$book ['title'] = '"Цюрихские Аксиомы"';
-$book ['author'] = 'Макс Гюнтер';
-$book ['pages'] = '300';
+# Теперь нужно найти наименьший день и наибольший месяц:
 
-#можно задать массив как 
-#$book=array('title' => 'Цюрихские Аксиомы' , 'author' => 'Макс Гюнтер' , 'pages' => '300');
-# Но для меня гораздо читабельнее, когда элемнты массива задаются в столбик.
+foreach($str as $value){ 
+$minday[] = substr($value,8,2);
+}
+echo '<br><br>Наименьший день месяца:'  .min($minday);
 
-echo '<br><br> Недавно я прочитал книгу '.$book ['title'].', '
-        . 'написанную автором '.$book ['author'].', '
-        . 'я осилил все '.$book ['pages'].' страниц, мне она очень понравилась. <br><br>';
+foreach($str as $value){ 
+$maxmounth[] = substr($value,5,2);
+}
+echo '<br><br>Наибольший месяц:'  .max($maxmounth)."<br><br>";
 
-# Четвертое задание
+#СОртируем массив по возростанию даты
+//sort ($str);
+//foreach($str as $value){ 
+//print_r($value);
+//echo '<br>';
+//}
 
-#$book1  = array( '"Цюрихские Аксиомы"', 'Макс Гюнтер', '300');
-#$book2  = array('"Как торговать акциями"', 'Джесси Ливермор' ,  '400');
 
-$books = array (
-    array ('title1'=>'"Цюрихские Аксиомы"',
-           'author1'=>'Макс Гюнтер',
-           'pages1'=>'300'),
+echo 'Сортируем даты по возростанию:<br>';
 
-    array ('title2'=>'"Как торговать акциями"',
-           'author2'=>'Джесси Ливермор',
-           'pages2'=>'400')
-    );
+sort ($date);
+foreach($date as $value){
+echo  date('d.m.Y H.m.s', $value);
+echo '<br>';
+        }
 
-   # var_dump($books);
-    
+        echo '<br>Последний элемент массива:<br>';        
+#Извлекаем последний элемент массива в переменную $selected и выводим в форомате д.м.Г Ч.м.с
 
-echo 'Недавно я прочитал книги '.$books[0]['title1'].' и '.$books[1]['title2'].''
-      . ', написанные соответственно авторами '.$books[0]['author1'].' и '.$books[1]['author2'].' '
-      . 'я осилил в сумме '.($books[0]['pages1'] + $books[1]['pages2']).' страниц, '
-      . 'не ожидал от себя подобного. <br> ';
+$selected=array_pop($date);
+
+date_default_timezone_get();
+
+echo date('d.m.Y H.m.s', $value);
+
+#Меняем тайм зону и повторяем вывод:
+
+date_default_timezone_set(America/New_York);
+
+echo date('d.m.Y H.m.s', $value);
 
 ?>
-
-
-
-
-  
