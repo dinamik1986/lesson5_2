@@ -5,42 +5,24 @@ error_reporting(E_ERROR|E_WARNING|E_PARSE|E_NOTICE);
 ini_set('display_errors', 1);
 
 # Делаем массив из рандомных значений юникс даты
-$date = array(rand(1,time()),rand(1,time()),rand(1,time()),rand(1,time()),rand(1,time()));
+
+$time=time();
+
+$date = array(rand(1,$time),rand(1,$time),rand(1,$time),rand(1,$time),rand(1,$time));
 
 #Выводим на экраз все значения в столбик для графического анализа
 
 echo 'День. Мес. Год. Час. Мин. Сек.<br>';
 
-foreach($date as $value){ 
-echo "<br>".date('d.m.Y H.m.s', $value);
-}
-
 #Нужно сделать массив из значений date('Y.m.d H.m.s', $value);
 
-
 foreach($date as $value){ 
-$str[] = date('d.m.Y H.m.s', $value);
-}
-
-# Теперь нужно найти наименьший день и наибольший месяц:
-
-foreach($str as $value){ 
-$minday[] = substr($value,0,2);
+echo "<br>".date('d.m.Y H.m.s', $value);
+$minday[] = date('d',$value);
+$maxmounth[] = date('m',$value);
 }
 echo '<br><br>Наименьший день месяца:'  .min($minday);
-
-foreach($str as $value){ 
-$maxmounth[] = substr($value,3,2);
-}
 echo '<br><br>Наибольший месяц:'  .max($maxmounth)."<br><br>";
-
-#СОртируем массив по возростанию даты
-//sort ($str);
-//foreach($str as $value){ 
-//print_r($value);
-//echo '<br>';
-//}
-
 
 echo 'Сортируем даты по возростанию:<br>';
 
