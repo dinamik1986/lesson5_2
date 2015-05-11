@@ -41,42 +41,80 @@ $bd=  parse_ini_string($ini_string, true);
 $itogo = 0;
 $kol_naimenovanii = 0;
 $obshee_kol_tovara = 0;
+// Зададим глобальные переменные для вывода информации о недостаточном количестве товаров на складе.
+$uvedomlenie = 0;
+$naimen_nedost ='';
 
+//Зададим переменную вывода раздела Скидки:
+$skidka30 = 0;
 
 echo ('<h3>Корзина покупок:</h3><br>');
 
 function parsebusket($basket)
 {
 
+echo '<style type="text/css">
+    table {
+        border-collapse: collapse;
+    }
+    table th,
+    table td {
+        padding: 0 3px;
+    }
+    table.brd th,
+    table.brd td {
+        border: 1px solid #000;
+    }
+</style>
+
+   <table class="brd">
+    <tr>
+        <th width="400">Наименование товара:</th>
+        <th width="150">Цена за ед:</th>
+        <th width="150">Скидка:</th>
+        <th width="150">Цена со скидкой:</th>
+        <th width="150">Количество заказано:</th>
+        <th width="150">Наличие на складе:</th>
+        <th width="150">Стоимость (по наличию):</th>
+    </tr>
+ </table>';
     
     foreach ($basket as $name => $value)
     {
 
-        echo $name;
-        echo '<br><br>';
         
        $discount = discount($value['цена'],$value['количество заказано'],$value['diskont'],$value['осталось на складе'],$name);
 
             
-        echo 'Цена за ед:'.$value['цена'].' руб '
-                . '| Скидка:' .$discount['skidka'].
-                ' | Цена со скидкой:'.$discount['price_skidka']
-                . '| Количество заказано:'.$value['количество заказано']. 
-                ' | Наличие на складе:'.$value['осталось на складе'].
-                '|Стоимость (по наличию):'.$discount['price'].'руб';
-        echo '<br><br><br>';
+   echo '<table>
+    <tr>
+        <th width="400">'.$name.'</th>
+        <th width="150">'.$value['цена'].'</th>
+        <th width="150">'.$discount['skidka'].'</th>
+        <th width="150">'.$discount['price_skidka'].'</th>
+        <th width="150">'.$value['количество заказано'].'</th>
+        <th width="150">'.$value['осталось на складе'].'</th>
+        <th width="150">'.$discount['price'].'</th>
+    </tr>
+ </table>';
+        
+        echo '<br>';
         
     itogo($discount['price'],$value['количество заказано'],$value['осталось на складе']);
     }   
 }
 
 function discount($price, $amount, $diskont, $ostatok, $name) {
+global $uvedomlenie;
+global $naimen_nedost;
+global $skidka30;
+        
 
     $skidka = substr($diskont, 7, 2);
 //Зададим проверку условия покупки 3 велосипедов, учитывая, что на складе тоже есть 3 велосипеда!
     if ($name == 'игрушка детская велосипед' && $amount >= '3' && $ostatok >= '3') {
-        echo '<b>Скидки:</b><br>';
-        echo '<span style="color: #FF0303;"><b>Вы заказали "игрушка детская велосипед" в количестве 3 или более штук, они есть на складе и Вам скидка 30%!!!<br> </span></b><br>';
+        
+        $skidka30 =1;
 
         $price_per_item_with_discount = 0.7 * $price;
         $skidka = 3;
@@ -88,8 +126,8 @@ function discount($price, $amount, $diskont, $ostatok, $name) {
 
         $total_price_all_items_with_discount = $amount * $price_per_item_with_discount;
     } else {
-        echo '<b>Уведомление:</b><br>';
-        echo '<span style="color: #FF0303;"><b>Внимание! На складе имеется недостаточное количество данного товара для заказа! Стоимость будет посчитана в соответствии с имеющимся количеством товара на складе!</span></b><br><br>';
+        $uvedomlenie = 1;
+        $naimen_nedost = $naimen_nedost.$name.'<br>';
         $total_price_all_items_with_discount = $ostatok * $price_per_item_with_discount;
     }
 
@@ -119,6 +157,22 @@ else{
     
     
 parsebusket($bd);
+
+if ($uvedomlenie == 1) {
+    echo '<b>Уведомление:</b><br>';
+        echo '<span style="color: #FF0303;"><b>Внимание! На складе имеется недостаточное количество товаров: '
+    . '<br> ' .$naimen_nedost.' Стоимость будет посчитана в соответствии с имеющимся количеством товара на складе!</span></b><br><br>';
+       
+}
+
+if ($skidka30 == 1) {
+    
+    echo '<b>Скидки:</b><br>';
+        echo '<span style="color: #FF0303;"><b>Вы заказали "игрушка детская велосипед" в количестве 3 '
+    . 'или более штук, они есть на складе и Вам скидка 30%!!!<br> </span></b><br>';
+    
+}
+
 
 echo '<b>ИТОГО:</b><br>';
 echo 'Общая стоимость товара:'.$itogo.'<br> '
