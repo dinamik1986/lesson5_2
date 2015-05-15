@@ -38,7 +38,7 @@ function vivod($news) {
     } else {
      header("HTTP/1.1 404 Not Found");    
      header("Status: 404 Not Found");
-     echo "Ошибка 404";
+     echo "Ошибка 404, Введите корректный ID!";
     }
 }
 
