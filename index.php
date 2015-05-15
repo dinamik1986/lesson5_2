@@ -1,10 +1,12 @@
+
+
 <?php
 
 header('Content-type: text/html; charset=utf-8');
 error_reporting(E_ERROR|E_WARNING|E_PARSE|E_NOTICE);
 ini_set('display_errors', 1);
 
-//GET
+//POST
 
 $news='Четыре новосибирские компании вошли в сотню лучших работодателей
 Выставка университетов США: открой новые горизонты
@@ -17,10 +19,12 @@ $news='Четыре новосибирские компании вошли в с
 Звезды телешоу «Голос» Наргиз Закирова и Гела Гуралиа споют в «Маяковском»';
 $news=  explode("\n", $news);
 
+//print_r($_POST);
+
 function vivod($news) {
 
-//    $id = $_GET['id'];
-    $id = isset($_GET['id']) ? strtolower($_GET['id']): 'azaza_error)';
+
+    $id = isset($_POST['id']) ? strtolower($_POST['id']): 'azaza_error)';
 
 
     if (is_numeric($id)) {
@@ -55,4 +59,22 @@ function vivod_all($news){
     foreach ($news as $key => $value)
     echo $value.'<br>';
 }
+?>
 
+<html>
+<head>
+<meta charset = "utf-8">
+<title>FORM</title>
+</head>
+<body>
+
+<form method = "POST">
+
+<p>
+<input type = "test" name = "id" value = "">
+</p>
+<p><input type = "submit"></p>
+</form>
+
+</body>
+</html>
