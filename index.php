@@ -1,5 +1,9 @@
 <?php
 
+header('Content-type: text/html; charset=utf-8');
+error_reporting(E_ERROR|E_WARNING|E_PARSE|E_NOTICE);
+ini_set('display_errors', 1);
+
 //GET
 
 $news='Четыре новосибирские компании вошли в сотню лучших работодателей
