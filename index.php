@@ -19,7 +19,9 @@ $news=  explode("\n", $news);
 
 function vivod($news) {
 
-    $id = $_GET['id'];
+//    $id = $_GET['id'];
+    $id = isset($_GET['id']) ? strtolower($_GET['id']): 'azaza_error)';
+
 
     if (is_numeric($id)) {
 
