@@ -29,7 +29,7 @@ function vivod($news) {
 
     if (is_numeric($id)) {
 
-        if ($id >= 0 && $id <= 8) {
+        if ($id >= 0 && $id <= count($news)-1) {
             echo $news[$id];
         } else {
             vivod_all($news);
